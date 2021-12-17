@@ -1,5 +1,15 @@
-import { createApp } from 'vue'
+import { createApp, createSSRApp } from 'vue'
 import App from './App.vue'
-import '../style.css'
+import '../style.css' //tailwind config
+import router from "./router/router"; //vue-router
+import Global from './Global.vue';
+// import Antd from 'ant-design-vue'; //ant-design
+// import 'ant-design-vue/dist/antd.css'; //ant-design
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.config.productionTip = false;
+app.use(router)
+app.use(Global)
+// app.use(Antd)
+app.mount('#app')
+// app.use(router)
