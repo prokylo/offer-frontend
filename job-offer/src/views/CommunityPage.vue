@@ -14,8 +14,10 @@
         <span class="py-2 px-5 rounded-full inline-block text-2xl">收藏</span>
       </label>
     </div>
-    <div class="rounded-lg shadow-lg mx-auto p-8 top-list">
-      <PostItem v-for="post in posts" :key="post.id" v-bind="post" />
+    <div class="rounded-lg shadow-lg mx-auto top-list">
+      <div v-for="post in posts" :key="post.id" class="p-8 cursor-pointer hover:bg-gray-50">
+        <PostItem v-bind="post"/>
+      </div>
     </div>
   </div>
 </template>
@@ -58,7 +60,7 @@ const posts = ref([
 <style scoped>
 #top-list:checked ~ .nav-bar label[for="top-list"] span{
   @apply text-yellow-600;
-  @apply underline;
+  /*@apply underline;*/
 }
 
 #collection-posts:checked ~ .nav-bar label[for="collection-posts"] span{

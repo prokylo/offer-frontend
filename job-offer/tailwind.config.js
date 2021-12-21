@@ -1,6 +1,6 @@
 module.exports = {
   // mode: "jit",
-  purge: ["./index.html", "./src/**/*.{vue,js}"],  //去除index.html中没有用到的样式
+  // purge: ["./index.html", "./src/**/*.{vue,js}"],  //去除index.html中没有用到的样式
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {

@@ -9,7 +9,7 @@
       <p>{{ user }}</p>
       <p class="text-gray-600 text-sm">{{ time }}</p>
     </div>
-    <button @click="window.open('www.baidu.com', 'blank')" class="ml-auto">
+    <button @click="" class="ml-auto">
       <span>
         <svg
             xmlns="http://www.w3.org/2000/svg"

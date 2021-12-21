@@ -34,8 +34,7 @@
       <div class="self-center">
         <p class="text-4xl" ref="title">从这里，开启你的招聘之旅！</p>
         <p class="subtitle text-gray-500 text-xl mt-4" ref="subtitle">这是一个集招聘信息、分享、吐槽于一体的平台</p>
-        <button class="bg-yellow-500 rounded-md
-    text-3xl text-white py-6 px-10 shadow-xl mt-8">Get Started</button>
+        <button class="bg-yellow-500 rounded-md text-3xl text-white py-6 px-10 shadow-xl mt-8">Get Started</button>
       </div>
       <div class="self-center">
         <img :src="myimg" class="w-160 h-96 ml-auto rounded-lg border-8 border-white shadow-lg"/>
@@ -70,7 +69,9 @@
       <span class="">技术交流</span>
     </div>
   </footer>
-  <button class="fixed bg-gray-100 p-8 text-2xl right-8 bottom-8 rounded-full text-gray-500">UP</button>
+  <button
+      @click="backToTop"
+      class="fixed bg-gray-100 p-8 text-2xl right-8 bottom-8 rounded-full text-gray-500 hidden">UP</button>
 </template>
 
 <script setup>
@@ -78,6 +79,27 @@ import { onMounted, ref } from 'vue'
 import introbg from './assets/intro-bg-wrapper.jpg'
 import LoginBox from './components/LoginBox.vue'
 const myimg = introbg;
+
+//back to top button event function
+const backToTop = () => {
+  // window.scrollTo({
+  //   top: 100,
+  //   left: 100,
+  //   behavior: 'smooth'
+  // });
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+
+  // console.log(haha)
+  // const that = this;
+  // let timer = setInterval(()=>{
+  //   let ispeed = Math.floor(-that.scrollTop / 5);
+  //   document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed;
+  //   if (that.scrollTop === 0){
+  //     clearInterval(timer);
+  //   }
+  // }, 16)
+};
 
 //params and callbacks of login module
 const showLoginBox = ref(false);

@@ -1,6 +1,5 @@
 <template>
   <div class="container mx-auto my-4">
-    <a-modal></a-modal>
     <div class="wrapper-search-bar my-4">
       <div class="border-2 border-gray-200 inline-block flex
         sm:w-2/3 rounded-full z-10 bg-white

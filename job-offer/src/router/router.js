@@ -4,6 +4,8 @@ import MainPage from '../views/MainPage.vue'
 import CommentsApp from '../CommentsApp.vue'
 import CommunityPage from '../views/CommunityPage.vue'
 import PostPage from '../views/PostPage.vue'
+import NotePanel from '../components/NotePanel.vue'
+import JobDetailPage from '../views/JobDetailPage.vue'
 
 // 路由信息
 const routes = [
@@ -27,6 +29,16 @@ const routes = [
         path: "/community/post/:postId",
         name: "post",
         component: PostPage
+    },
+    {
+        path: "/note",
+        name: "note",
+        component: NotePanel
+    },
+    {
+        path: "/jobs/:jobId/detail",
+        name: "job",
+        component: JobDetailPage
     }
 ];
 
