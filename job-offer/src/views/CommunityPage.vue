@@ -59,15 +59,18 @@ const posts = ref([
 
 <style scoped>
 #top-list:checked ~ .nav-bar label[for="top-list"] span{
-  @apply text-yellow-600;
+  @apply text-green-600;
+  @apply font-bold;
   /*@apply underline;*/
 }
 
 #collection-posts:checked ~ .nav-bar label[for="collection-posts"] span{
-  @apply text-yellow-600;
+  @apply text-green-600;
+  @apply font-bold;
 }
 
 #recent-posts:checked ~ .nav-bar label[for="recent-posts"] span{
-  @apply text-yellow-600;
+  @apply text-green-600;
+  @apply font-bold;
 }
 </style>

@@ -6,7 +6,7 @@
       </div>
       <nav class="flex items-center ml-auto mr-4">
         <div class="border-b-4 border-transparent hover:border-green-600 p-2">
-          <a class="list-none mx-4 text-xl " href=""><router-link to="/offers">HOME</router-link></a>
+          <a class="list-none mx-4 text-xl " href=""><router-link to="/jobs">HOME</router-link></a>
         </div>
         <div class="border-b-4 border-transparent hover:border-green-600 p-2">
           <a class="list-none mx-4 text-xl " href=""><router-link to="/community">COMMUNITY</router-link></a>

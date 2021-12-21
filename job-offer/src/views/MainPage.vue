@@ -15,13 +15,11 @@
     <img src="https://www.apple.com/v/mac/home/bj/images/overview/hero/hero_macbook_pro_14_16__0y2t2v3g4hu2_large_2x.jpg" class="rounded shadow-lg">
 
     <div class="my-8 sm:flex sm:flex-wrap sm:justify-between">
-      <JobCardBox v-for="job in jobs" :key="job.id"
-        :jobName="job.jobName"
-        :place="job.place"
-        :year="job.year"
-        :education="job.education"
-        :salary="job.salary"
-        :company="job.company"
+      <JobCardBox v-for="job in jobs"
+                  :key="job.id"
+                  @click="routeToDetailPage"
+                  class="cursor-pointer"
+                  v-bind="job"
       />
     </div>
   </div>
@@ -31,9 +29,16 @@
 import { ref } from 'vue'
 import JobCardBox from '../components/JobCardBox.vue'
 import Global from "../Global.vue";
+import {useRouter} from "vue-router";
 
 const token = Global.token;
 console.log(token);
+
+const router = useRouter();
+const routeToDetailPage = ()=>{
+  router.push({ name: 'detail', params:{ jobId: 2}})
+}
+
 
 const jobs = ref([
   {
