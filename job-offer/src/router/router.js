@@ -6,6 +6,7 @@ import CommunityPage from '../views/CommunityPage.vue'
 import PostPage from '../views/PostPage.vue'
 import NotePanel from '../components/NotePanel.vue'
 import JobDetailPage from '../views/JobDetailPage.vue'
+import EditorPage from '../views/EditorPage.vue'
 
 // 路由信息
 const routes = [
@@ -39,6 +40,11 @@ const routes = [
         path: "/jobs/:jobId/detail",
         name: "detail",
         component: JobDetailPage
+    },
+    {
+        path: "/editor/drafts",
+        name: "editor",
+        component: EditorPage
     }
 ];
 
