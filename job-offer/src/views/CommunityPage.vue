@@ -1,4 +1,5 @@
 <template>
+  <HeaderNavComp :isFixed="false"/>
   <div class="container mx-auto">
     <input type="radio" name="tab" id="top-list" class="hidden" checked/>
     <input type="radio" name="tab" id="collection-posts" class="hidden"/>
@@ -15,62 +16,65 @@
       </label>
     </div>
     <div class="rounded-lg shadow-lg mx-auto top-list">
-      <div v-for="post in posts" :key="post.id" class="p-8 cursor-pointer hover:bg-gray-50">
-        <PostItem v-bind="post"/>
+      <div v-for="blog in blogs" :key="blog.id" class="p-8 cursor-pointer hover:bg-gray-50">
+        <BlogItem v-bind="blog"/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import avatar from '../assets/avatar.jpg'
-import PostItem from "../components/PostItem.vue";
 import DividerHorizontal from "../components/DividerHorizontal.vue";
-const posts = ref([
-  {
-    id: 1,
-    postId: '0001',
-    user: '徐摆渡',
-    intro: '资深开发工程师',
-    time: '1小时前',
-    title: '如何如何如何如何',
-    avatar: avatar,
-    content: '这般这般这般',
-    subscribes: 1,
-    collections: 2
-  },
-  {
-    id: 2,
-    postId: '0002',
-    user: '徐摆渡',
-    intro: '资深开发工程师',
-    time: '1小时前',
-    title: '如何如何如何如何',
-    avatar: avatar,
-    content: '这般这般这般',
-    subscribes: 1,
-    collections: 2
-  }
-]);
+import HeaderNavComp from "../components/HeaderNavComp.vue";
+import BlogItem from "../components/BlogItem.vue";
 
+onMounted(()=>{
+  getPostList();
+})
+
+const constructABlog = (item) => {
+  return {
+    id: item.BlogID,
+    blogId: item.BlogID,
+    user: item.AuthorID,
+    time: '1小时前',
+    title: item.Title,
+    avatar: avatar,
+    content: item.Content,
+    likes: item.Likes,
+    collections: item.Likes
+  }
+}
+
+const getPostList = async () => {
+  const res = await fetch("/api/blog/show_blog_list", {
+    method: "GET"
+  })
+  const blogList = await res.json();
+  blogList.data.blogs.forEach((item)=>{
+    blogs.value.push(constructABlog(item));
+  })
+}
+
+const blogs = ref([]);
 
 </script>
 
 <style scoped>
 #top-list:checked ~ .nav-bar label[for="top-list"] span{
-  @apply text-green-600;
+  @apply text-indigo-600;
   @apply font-bold;
-  /*@apply underline;*/
 }
 
 #collection-posts:checked ~ .nav-bar label[for="collection-posts"] span{
-  @apply text-green-600;
+  @apply text-indigo-600;
   @apply font-bold;
 }
 
 #recent-posts:checked ~ .nav-bar label[for="recent-posts"] span{
-  @apply text-green-600;
+  @apply text-indigo-600;
   @apply font-bold;
 }
 </style>

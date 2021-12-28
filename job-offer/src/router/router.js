@@ -3,7 +3,7 @@ import JobOffersApp from '../JobOffersApp.vue'
 import MainPage from '../views/MainPage.vue'
 import CommentsApp from '../CommentsApp.vue'
 import CommunityPage from '../views/CommunityPage.vue'
-import PostPage from '../views/PostPage.vue'
+import PostPage from '../views/BlogPage.vue'
 import NotePanel from '../components/NotePanel.vue'
 import JobDetailPage from '../views/JobDetailPage.vue'
 import EditorPage from '../views/EditorPage.vue'
@@ -27,8 +27,8 @@ const routes = [
         component: CommunityPage
     },
     {
-        path: "/community/post/:postId",
-        name: "post",
+        path: "/community/blog/:blogId",
+        name: "blog",
         component: PostPage
     },
     {
