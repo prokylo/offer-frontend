@@ -5,7 +5,7 @@
     <div class="self-center">
       <h2 class="text-4xl font-bold text-indigo-700 mx-8">牛小客</h2>
     </div>
-    <nav class="flex items-center ml-auto mr-4">
+    <nav class="flex items-center ml-auto mr-4 hidden lg:flex">
       <div class="border-b-4 border-transparent hover:border-indigo-700 p-2">
         <a class="list-none mx-4 text-xl " href=""><router-link to="/jobs">HOME</router-link></a>
       </div>
@@ -19,17 +19,21 @@
         <a class="list-none mx-4 text-xl" href="">SUPPORT</a>
       </div>
     </nav>
-    <button
-        class="bg-indigo-700 border-2 rounded-lg place-self-center mr-1
+    <div class="hidden sm:flex ml-auto lg:ml-0">
+      <button
+          class="mr-6 bg-indigo-700 border-2 rounded-lg place-self-center
           text-white py-3 px-6 justify-self-center shadow hover:bg-indigo-800 text-xl"
-        :class="[ isLogin === null ? 'visible' : 'hidden']" @click="handleOpenLoginBox"
-    >Sign In
-    </button>
-    <button :class="[ isLogin === null ? 'hidden' :'visible']" @click="handleOpenLoginBox">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
-    </button>
+          :class="[ isLogin === null ? 'visible' : 'hidden']" @click="handleOpenLoginBox"
+      >Sign In
+      </button>
+    </div>
+    <div>
+      <button :class="[ isLogin === null ? 'hidden' :'visible']" @click="handleOpenLoginBox">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      </button>
+    </div>
   </header>
   <transition name="loginbox">
     <LoginBox
