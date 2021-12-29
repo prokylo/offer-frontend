@@ -28,7 +28,7 @@
             <input
                 type="button"
                 value="注册"
-                class="px-4 py-1.5 bg-white rounded border ml-3"
+                class="px-4 py-1.5 bg-white rounded border ml-3" @click="handleRegisterRequest"
             />
           </fieldset>
           <button @click="handleCloseLoginBox" class="absolute -right-6 -top-6">
@@ -49,6 +49,28 @@ const email = ref("");
 const password = ref("");
 
 const emit = defineEmits(["submit", "click"]);
+
+const handleRegisterRequest = async (e) => {
+  e.preventDefault();
+
+  const res = await fetch("api/index/register",{
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8;'
+    },
+    body:JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+  const resp = await res.json();
+  console.log(resp);
+  if(resp.code === 0) {
+    alert('注册！');
+  } else {
+    alert(resp.msg);
+  }
+}
 
 const handleLoginRequest = async (e) => {
   e.preventDefault();
@@ -74,7 +96,6 @@ const handleLoginRequest = async (e) => {
     emit("click", false);
     window.sessionStorage.setItem("user_id", resp.data.user_info.user_id);
   }
-
 }
 
 const handleCloseLoginBox = (e) => {

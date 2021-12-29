@@ -6,7 +6,7 @@
         class="w-16 h-16 mr-4 rounded-full"
     />
     <div class="self-center">
-      <p>{{ user }}</p>
+      <p class="text-xl font-semibold">{{ user }}</p>
       <p class="text-gray-600 text-sm">{{ time }}</p>
     </div>
     <button @click="window.open('www.baidu.com', 'blank')" class="ml-auto">
@@ -31,9 +31,9 @@
     <Markdown class="text-gray-600 overflow-ellipsis overflow-content no-prose" :source="content" />
   </div>
   <div class="my-2 flex items-center">
-    <button class="flex flex-row">
+    <button class="flex flex-row" @click="handleAddLikeItems">
       <span class="mr-2">{{ likes }}</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
       </svg>
     </button>
@@ -53,13 +53,28 @@
 import DividerHorizontal from './DividerHorizontal.vue'
 import Markdown from 'vue3-markdown-it'
 import { useRouter } from 'vue-router'
-const props = defineProps(["id", "blogId", "user", "time", "title", "avatar", "content", "likes", "collections"]);
+const props = defineProps(["id", "blogId", "user_id", "user", "time", "title", "avatar", "content", "likes", "collections"]);
 const router = useRouter();
 
 const handleTurnToPostContent = () =>{
   router.push({ name: 'blog', params: { blogId: props.blogId } });
 }
 
+const handleAddLikeItems = async () => {
+  const res = await fetch('/api/blog/add_star', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8;'
+    },
+    body:JSON.stringify({
+      user_id: props.user_id,
+      blog_id: props.blogId
+    })
+  })
+
+  const comment = await res.json();
+  console.log(comment);
+}
 </script>
 
 <style scoped>

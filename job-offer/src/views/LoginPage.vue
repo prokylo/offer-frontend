@@ -2,10 +2,7 @@
 
 </template>
 
-<script>
-export default {
-name: "LoginPage"
-}
+<script setup>
 </script>
 
 <style scoped>

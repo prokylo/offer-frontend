@@ -39,7 +39,7 @@
 import DividerHorizontal from "../components/DividerHorizontal.vue";
 import DividerInlineVertical from "../components/DividerInlineVertical.vue";
 import { ref } from 'vue';
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
 const jobDescription = ref([
   '1、参与前端的开发工作，将创意变成现实，并确保顺畅的用户体验；',

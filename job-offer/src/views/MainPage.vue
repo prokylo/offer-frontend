@@ -33,14 +33,13 @@ import Global from "../Global.vue";
 import {useRouter} from "vue-router";
 import HeaderNavComp from "../components/HeaderNavComp.vue";
 
-const token = Global.token;
-console.log(token);
+// const token = Global.token;
+// console.log(token);
 
 const router = useRouter();
 const routeToDetailPage = ()=>{
   router.push({ name: 'detail', params:{ jobId: 2}})
 }
-
 
 const jobs = ref([
   {
