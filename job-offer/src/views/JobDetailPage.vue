@@ -2,26 +2,26 @@
   <div class="p-0 sm:p-4 bg-gray-100 min-h-screen">
     <div class="container max-w-screen-xl p-8 mx-auto rounded-lg shadow-lg bg-white">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold">【22秋招】C++开发工程师</h2>
+        <h2 class="text-2xl font-semibold">【2022秋招】{{ title }}</h2>
         <button class="rounded-full border-2 border-indigo-600 py-2 px-4 cursor-pointer" @click="backToHome">返回职位列表</button>
       </div>
       <DividerHorizontal />
 
       <div class="flex bg-gray-50 p-6 font-semibold">
-        <div class="w-1/2 sm:w-1/3">公司名称：腾讯</div>
-        <div class="w-1/2 sm:w-1/3">工作地点：上海市</div>
+        <div class="w-1/2 sm:w-1/3">公司名称：{{ company }}</div>
+        <div class="w-1/2 sm:w-1/3">工作地点：{{ base }}</div>
       </div>
       <div class="px-6">
         <h2 class="text-xl font-semibold border-r-4 border-indigo-600 my-8">职位描述</h2>
         <ul>
           <li v-for="jd in jobDescription" :key="jd.index" class="my-2">
-            {{ jd }}
+            1、{{ content }}
           </li>
         </ul>
         <h2 class="text-xl font-semibold border-r-4 border-indigo-600 my-8">任职资格</h2>
         <ul>
           <li v-for="jd in jobTech" :key="jd.index" class="my-2">
-            {{ jd }}
+            1、{{ content }}
           </li>
         </ul>
         <div class="mt-8 mb-4">
@@ -38,7 +38,7 @@
 <script setup>
 import DividerHorizontal from "../components/DividerHorizontal.vue";
 import DividerInlineVertical from "../components/DividerInlineVertical.vue";
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from "vue-router";
 
 const jobDescription = ref([
@@ -57,7 +57,7 @@ const jobTech = ref([
 const content = ref('');
 const title = ref('');
 const company = ref('');
-const place = ref('');
+const base = ref('');
 
 const router = useRouter();
 
@@ -65,9 +65,25 @@ const backToHome = () => {
   router.push({ path: '/jobs'})
 }
 
-const getJobDetailDescription = (id) => {
-  
+const getJobDetailDescription = async (id) => {
+  const res = await fetch(`/api/job/show_job?job_id=${id}`, {
+    method: 'GET'
+  })
+
+  const jobobj = await res.json();
+  title.value = jobobj.data.job.title;
+  company.value = jobobj.data.job.company;
+  base.value = jobobj.data.job.base;
+  content.value = jobobj.data.job.content;
+
+  console.log(jobobj)
 }
+
+onMounted(()=>{
+  const jobID = router.currentRoute.value.params.jobId;
+  // console.log(jobID);
+  getJobDetailDescription(jobID);
+})
 
 </script>
 
