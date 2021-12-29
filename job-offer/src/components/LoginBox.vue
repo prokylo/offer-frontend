@@ -67,8 +67,14 @@ const handleLoginRequest = async (e) => {
       password: password.value
     })
   });
-  const comments = await res.json();
-  console.log(comments);
+  const resp = await res.json();
+  console.log(resp);
+  if(resp.code === 0) {
+    alert('登陆成功！');
+    emit("click", false);
+    window.sessionStorage.setItem("user_id", resp.data.user_info.user_id);
+  }
+
 }
 
 const handleCloseLoginBox = (e) => {

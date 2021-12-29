@@ -44,16 +44,18 @@
 import { ref, onMounted } from "vue";
 import LoginBox from './LoginBox.vue';
 
+let isLogin = ref();
+
 onMounted(()=>{
   console.log(props.isFixed)
+  isLogin.value = window.sessionStorage.getItem("user_id");
 })
 
 const props = defineProps(["isFixed"]);
 
-let isLogin = ref(sessionStorage.getItem('isLogin'));
 
 //params and callbacks of login module
-const showLoginBox = ref(false);
+let showLoginBox = ref(false);
 const emit = defineEmits(["click"]);
 
 const handleOpenLoginBox = () => {

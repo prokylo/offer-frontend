@@ -7,6 +7,7 @@ import PostPage from '../views/BlogPage.vue'
 import NotePanel from '../components/NotePanel.vue'
 import JobDetailPage from '../views/JobDetailPage.vue'
 import EditorPage from '../views/EditorPage.vue'
+import MessageComp from '../components/MessageComp.vue'
 
 // 路由信息
 const routes = [
@@ -45,6 +46,10 @@ const routes = [
         path: "/editor/drafts",
         name: "editor",
         component: EditorPage
+    },
+    {
+        path: "/msg",
+        component: MessageComp
     }
 ];
 

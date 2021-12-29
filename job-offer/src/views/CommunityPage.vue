@@ -15,7 +15,7 @@
         <span class="py-2 px-5 rounded-full inline-block text-2xl">收藏</span>
       </label>
     </div>
-    <div class="rounded-lg shadow-lg mx-auto top-list">
+    <div class="rounded-lg shadow-lg mx-auto top-list mb-4">
       <div v-for="blog in blogs" :key="blog.id" class="p-8 cursor-pointer hover:bg-gray-50">
         <BlogItem v-bind="blog"/>
       </div>
@@ -33,6 +33,10 @@ import BlogItem from "../components/BlogItem.vue";
 onMounted(()=>{
   getPostList();
 })
+
+const getUsernameByAuthorID = async (id) => {
+  await fetch();
+}
 
 const constructABlog = (item) => {
   return {

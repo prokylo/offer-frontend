@@ -128,15 +128,11 @@ onMounted(()=>{
     }
     50%{
       transform-origin: 100% 100%;
-      transform: rotate(-10deg);
-    }
-    75%{
-      transform-origin: 100% 100%;
-      transform: rotate(-7deg);
+      transform: rotate(-5deg);
     }
     100%{
       transform-origin: 100% 100%;
-      transform: rotate(-5deg);
+      transform: rotate(-15deg);
     }
   }
 </style>

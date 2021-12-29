@@ -18,13 +18,13 @@ const handleSubmit = (e) => {
         name="comment"
         id=""
         placeholder="请输入你的评论"
-        class="bg-blue-50 p-2 rounded"
+        class="bg-indigo-50 p-2 rounded"
     ></textarea>
     <fieldset class="py-4">
       <input
           type="submit"
           value="评论"
-          class="px-4 py-1 bg-blue-600 rounded text-white"
+          class="px-4 py-1 bg-indigo-600 rounded text-white"
       />
       <input
           type="reset"

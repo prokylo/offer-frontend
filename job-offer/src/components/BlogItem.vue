@@ -28,9 +28,7 @@
     <h2 class="text-2xl font-bold text-black my-4">
       {{ title }}
     </h2>
-    <p class="text-gray-600">
-      {{ content }}
-    </p>
+    <Markdown class="text-gray-600 overflow-ellipsis overflow-content no-prose" :source="content" />
   </div>
   <div class="my-2 flex items-center">
     <button class="flex flex-row">
@@ -53,6 +51,7 @@
 
 <script setup>
 import DividerHorizontal from './DividerHorizontal.vue'
+import Markdown from 'vue3-markdown-it'
 import { useRouter } from 'vue-router'
 const props = defineProps(["id", "blogId", "user", "time", "title", "avatar", "content", "likes", "collections"]);
 const router = useRouter();
@@ -64,5 +63,11 @@ const handleTurnToPostContent = () =>{
 </script>
 
 <style scoped>
-
+  .overflow-content{
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
 </style>

@@ -1,31 +1,29 @@
 <template>
-  <main class="p-4 bg-gray-50 min-h-screen">
-    <div class="max-w-screen-xl mx-auto bg-white p-8 rounded-lg shadow-2xl">
-      <h2 class="text-3xl my-6">评论</h2>
-      <CommentBox @submit="addNewComment"/>
-      <DividerHorizontal />
+  <div class="max-w-screen-xl mx-auto bg-white p-8 rounded-lg">
+    <h2 class="text-3xl my-6">评论</h2>
+    <CommentBox @submit="addNewComment"/>
+    <DividerHorizontal />
 
-      <div v-for="comment in comments" :key="comment.id">
+    <div v-for="comment in comments" :key="comment.id">
+      <CommentItem
+        :user="comment.user"
+        :avatar="comment.avatar"
+        :time="comment.time"
+        :content="comment.content"
+      />
+      <ReplyContainer v-if="comment.replies">
         <CommentItem
-          :user="comment.user"
-          :avatar="comment.avatar"
-          :time="comment.time"
-          :content="comment.content"
+          v-for="reply in comment.replies"
+          :key="reply.id"
+          :user="reply.user"
+          :avatar="reply.avatar"
+          :time="reply.time"
+          :content="reply.content"
         />
-        <ReplyContainer v-if="comment.replies">
-          <CommentItem
-            v-for="reply in comment.replies"
-            :key="reply.id"
-            :user="reply.user"
-            :avatar="reply.avatar"
-            :time="reply.time"
-            :content="reply.content"
-          />
-        </ReplyContainer>
-        <ReplyBox @submit="addReply($event, comment.id)"/>
-      </div>
+      </ReplyContainer>
+      <ReplyBox @submit="addReply($event, comment.id)"/>
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup>
