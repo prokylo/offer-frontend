@@ -2,12 +2,7 @@
 
 </template>
 
-<script>
-export default {
-  name: "Global",
-  token: '',
-  hasEnter: false
-}
+<script setup>
 </script>
 
 <style scoped>

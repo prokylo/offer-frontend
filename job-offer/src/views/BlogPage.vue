@@ -70,7 +70,7 @@ const getBlogContent = async (id) => {
   })
 
   const result = await res.json();
-  name.value = result.data.blog.AuthorID;
+  name.value = result.data.blog.UserID;
   content.value = result.data.blog.Content;
   time.value = result.data.blog.UpdatedAt;
   title.value = result.data.blog.Title;

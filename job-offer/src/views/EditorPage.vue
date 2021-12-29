@@ -12,7 +12,6 @@ import Markdown from 'vue3-markdown-it';
 // import 'highlight.js/lib/common.js'
 
 const markdown = ref('');
-const code = ref('haha')
 </script>
 
 <style scoped>
