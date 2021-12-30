@@ -48,19 +48,17 @@ const addNewBlog = () => {
 }
 
 const getUsernameByAuthorID = async (id) => {
-  const res = await fetch(`/api/user/get_user_info?id=${id}`, {
+  const res = await fetch(`/api/user/profile?user_id=${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8;'
     }
   });
   const userinfo = await res.json();
-  // console.log(userinfo)
-  return userinfo.data.user_info.name;
+  return userinfo.data.name;
 }
 
 const constructABlog = async(item) => {
-  console.log(item);
   const username = await getUsernameByAuthorID(item.UserID);
   return {
     id: item.ID,

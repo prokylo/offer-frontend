@@ -44,6 +44,8 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
@@ -64,9 +66,8 @@ const handleRegisterRequest = async (e) => {
     })
   });
   const resp = await res.json();
-  console.log(resp);
   if(resp.code === 0) {
-    alert('注册！');
+    alert('注册成功！');
   } else {
     alert(resp.msg);
   }
@@ -75,10 +76,6 @@ const handleRegisterRequest = async (e) => {
 const handleLoginRequest = async (e) => {
   e.preventDefault();
 
-  console.log(JSON.stringify({
-    email: email.value,
-    password: password.value
-  }))
   const res = await fetch("api/index/login",{
     method: "POST",
     headers: {
@@ -90,11 +87,12 @@ const handleLoginRequest = async (e) => {
     })
   });
   const resp = await res.json();
-  console.log(resp);
   if(resp.code === 0) {
     alert('登陆成功！');
     emit("click", false);
     window.sessionStorage.setItem("user_id", resp.data.user_info.user_id);
+    router.push('/jobs');
+    emit("submit", true);
   }
 }
 
