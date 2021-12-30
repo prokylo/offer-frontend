@@ -1,7 +1,7 @@
 <template>
   <HeaderNavComp />
   <div class="container mx-auto my-4">
-    <div class="wrapper-search-bar my-4 mx-6 sm:mx-0">
+    <div class="wrapper-search-bar my-4 mx-6 sm:mx-0 flex">
       <div class="border-2 border-gray-200 inline-block flex
         sm:w-2/3 rounded-full z-10 bg-white
         focus-within:border-indigo-500"
@@ -12,11 +12,12 @@
             placeholder="请输入想要查找的职位/公司" />
         <button class="border bg-indigo-600 rounded-full py-3 w-28 text-white">搜索</button>
       </div>
+      <button class="bg-indigo-500 px-6 ml-auto rounded-lg text-white py-0">发布职位</button>
     </div>
     <img src="https://www.apple.com/v/mac/home/bj/images/overview/hero/hero_macbook_pro_14_16__0y2t2v3g4hu2_large_2x.jpg"
          class="mx-auto rounded shadow-lg">
 
-    <div class="my-8 sm:flex sm:flex-wrap sm:justify-between">
+    <div class="my-8 sm:flex sm:flex-wrap sm:flex-start">
       <JobCardBox v-for="job in jobs"
                   :key="job.id"
                   @click="routeToDetailPage"

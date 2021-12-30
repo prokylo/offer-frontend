@@ -36,30 +36,32 @@ import ReplyContainer from "./components/ReplyContainer.vue"
 
 import face from "./assets/avatar.jpg";
 
+// {
+//   id: 1,
+//       user: "宜兴小火龙",
+//     avatar: face,
+//     time: "2小时前",
+//     content: "这个小方真的是太厉害了！！！！！！！！！！！！！！！！",
+//     replies: [
+//   {
+//     id: 2,
+//     user: "宜兴小火龙",
+//     avatar: face,
+//     time: "1小时前",
+//     content: "确实！"
+//   },
+//   {
+//     id: 3,
+//     user: "宜兴小火龙",
+//     avatar: face,
+//     time: "30分钟前",
+//     content: "啊对对对！！！！！！！"
+//   }
+// ]
+// }
+
 let comments = ref([
-  {
-    id: 1,
-    user: "宜兴小火龙",
-    avatar: face,
-    time: "2小时前",
-    content: "这个小方真的是太厉害了！！！！！！！！！！！！！！！！",
-    replies: [
-      {
-        id: 2,
-        user: "宜兴小火龙",
-        avatar: face,
-        time: "1小时前",
-        content: "确实！"
-      },
-      {
-        id: 3,
-        user: "宜兴小火龙",
-        avatar: face,
-        time: "30分钟前",
-        content: "啊对对对！！！！！！！"
-      }
-    ]
-  }
+
 ]);
 
 let rid = ref(4);

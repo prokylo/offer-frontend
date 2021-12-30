@@ -9,11 +9,14 @@ import JobDetailPage from '../views/JobDetailPage.vue'
 import EditorPage from '../views/EditorPage.vue'
 import MessageComp from '../components/MessageComp.vue'
 import ProfilePage from '../views/ProfilePage.vue'
+import JobEditorComp from '../components/JobEditorComp.vue'
+import { ref } from 'vue';
 
-const token = window.sessionStorage.getItem("user_id");
+const token = ref(window.sessionStorage.getItem("user_id"));
 
 const authCheck = () => {
-    if (token === '' || token === null || token === undefined){
+    console.log(token);
+    if (token.value === '' || token.value === null || token.value === undefined){
         alert('请先登录！');
         return false;
     }
@@ -72,6 +75,10 @@ const routes = [
         name: "profile",
         component: ProfilePage,
         beforeEnter: [authCheck]
+    },
+    {
+        path: "/jobeditor",
+        component: JobEditorComp
     }
 ];
 
@@ -80,4 +87,8 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 });
+
+router.beforeEach((guard)=>{
+    token.value = window.sessionStorage.getItem("user_id");
+})
 export default router;

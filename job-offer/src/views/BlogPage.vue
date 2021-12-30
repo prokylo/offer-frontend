@@ -96,13 +96,14 @@ const getBlogContent = async (id) => {
   })
   const result = await res.json();
 
-  const userinfo = await fetch(`/api/user/get_user_info?id=${result.data.blog.UserID}`, {
+  const userinfo = await fetch(`/api/user/profile?user_id=${result.data.blog.UserID}`, {
     method: 'GET'
   });
 
   const userjson = await userinfo.json();
 
-  name.value = userjson.data.user_info.name;
+  console.log(userjson)
+  name.value = userjson.data.name;
   content.value = result.data.blog.Content;
   time.value = result.data.blog.UpdatedAt;
   title.value = result.data.blog.Title;

@@ -1,42 +1,51 @@
 <template>
-  <div class="grid gap-4 grid-cols-6">
-    <div class="mt-2 col-span-4 col-start-2">
-      <form action="#" method="POST">
-        <div class="shadow sm:rounded-md sm:overflow-hidden">
-            <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+  <div class="bg-gray-50 min-h-screen">
+    <HeaderNavComp />
+<!--    <a class="hidden" id="file-download"></a>-->
+    <div class="grid gap-4 grid-cols-6 mt-8">
+      <div class="mt-2 col-span-4 col-start-2">
+        <form action="" @submit="handleUploadResume">
+          <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="px-4 py-5 bg-white space-y-6 sm:p-12">
               <div>
-                <label class="block text-lg font-medium text-gray-700">
-                  Photo
-                </label>
-                <div class="mt-1 flex items-center">
-                <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                  <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                </span>
-                <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Change
-                </button>
+                <label class="text-2xl font-semibold text-gray-700">我的简历</label>
+                <span class="ml-4 text-gray-700">{{ username }}</span>
+                <div class="mt-4 flex items-center">
+                  <img class="w-16 h-16 rounded-full" :src="avatar"/>
                 </div>
               </div>
-
-              <div>
-                <label for="about" class="block text-sm font-medium text-gray-700">
-                  About
-                </label>
-                <div class="mt-1">
-                  <textarea id="about" name="about" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
-                </div>
-                <p class="mt-2 text-sm text-gray-500">
-                  Brief description for your profile. URLs are hyperlinked.
-                </p>
+              <div class="flex justify-center">
+                <iframe style="width: 100%;" class="h-screen" :src="resumeURL"></iframe>
+                <embed :src="resumeURL" class="w-6/7 h-screen hidden" />
               </div>
 
-              <div>
-                <label class="block text-sm font-medium text-gray-700">
-                  Cover photo
+              <div v-if="hasResume">
+                <h2 class="text-xl text-gray-500 col-span-4">简历附件</h2>
+                <div class="grid grid-cols-8">
+                  <div class="col-span-2 bg-indigo-50 mt-6 px-6 py-4 rounded-lg flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <a class="text-blue-500 ml-auto hover:cursor-pointer" :href="aresumeURL" target="_blank">下载</a>
+                  </div>
+                </div>
+              </div>
+              <div v-if="!hasResume">
+                <h2 class="bg-indigo-50 p-4 rounded-lg shadow text-lg">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                    </svg>
+                  </span>
+                  Hi，还没有上传简历哦，赶紧上传一份吧！
+                </h2>
+              </div>
+
+              <div v-if="!hasResume">
+                <label class="block text-lg font-semibold text-gray-700">
+                  Upload resume
                 </label>
-                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div class="mt-4 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                   <div class="space-y-1 text-center">
                     <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -49,7 +58,7 @@
                       <p class="pl-1">or drag and drop</p>
                     </div>
                     <p class="text-xs text-gray-500">
-                      PNG, JPG, GIF up to 10MB
+                      PDF, DOC, DOCS up to 10MB
                     </p>
                   </div>
                 </div>
@@ -61,12 +70,86 @@
               </button>
             </div>
           </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import HeaderNavComp from "../components/HeaderNavComp.vue";
+import avatar from "../assets/avatar.jpg";
+import pdf from "./../../../../../ProgramData (x86)/Go/src/advanced_programming/saved_files/user1_文件说明.pdf"
+
+import { ref, onBeforeMount } from 'vue';
+const hasResume = ref(false);
+const username = ref('');
+
+const userID = ref('');
+// const baseFileUrl = "./../../../../../ProgramData (x86)/Go/src/advanced_programming/saved_files/";
+
+const baseFileUrl = "/";
+
+const resumeURL = ref('');
+
+const aresumeURL = ref('');
+
+const getUserName = async () => {
+  const res = await fetch(`/api/user/profile?user_id=${userID.value}`,{
+    method: 'GET'
+  })
+  const userinfo = await res.json();
+  username.value = userinfo.data.name;
+  if(userinfo.data.resume !== ''){
+    hasResume.value = true;
+  }
+}
+
+const handleUploadResume2 = async() => {
+  const res = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
+    method: 'GET',
+
+  })
+}
+
+const handleUploadResume = async() => {
+  const res = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
+    method: 'GET'
+  })
+
+  const file = await res.json();
+  resumeURL.value = baseFileUrl + "10185101250_20211009.pdf";
+
+  // const res = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // }).then(res => {
+  //   res.blob().then( blob => {
+  //     let blobUrl = window.URL.createObjectURL(blob);
+  //     //不能直接创建一个<a>标签
+  //     // let a = document.createElement('a_id');
+  //     let a = document.getElementById('file-download');
+  //     //无法从返回的文件流中获取文件名
+  //     // let filename = response.headers.get('Content-Disposition');
+  //     let filename = 'file.txt';
+  //     a.href = blobUrl;
+  //     a.download = filename;
+  //     a.click();
+  //     window.URL.revokeObjectURL(blobUrl);
+  //   });
+  // })
+}
+
+onBeforeMount(()=>{
+  userID.value = window.sessionStorage.getItem("user_id");
+  aresumeURL.value = 'http://127.0.0.1:8080/user/download_resume?user_id=' + userID.value;
+  console.log(aresumeURL.value);
+  getUserName();
+  handleUploadResume();
+})
+
 </script>
 
 <style scoped>
