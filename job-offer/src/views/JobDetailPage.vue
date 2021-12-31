@@ -14,22 +14,44 @@
       <div class="px-6">
         <h2 class="text-xl font-semibold border-r-4 border-indigo-600 my-8">职位描述</h2>
         <ul>
-          <li v-for="jd in jobDescription" :key="jd.index" class="my-2">
-            1、{{ content }}
+          <li class="my-2">
+            {{ content }}
           </li>
+<!--          <li v-for="jd in jobDescription" :key="jd.index" class="my-2">-->
+<!--            1、{{ content }}-->
+<!--          </li>-->
         </ul>
         <h2 class="text-xl font-semibold border-r-4 border-indigo-600 my-8">任职资格</h2>
         <ul>
-          <li v-for="jd in jobTech" :key="jd.index" class="my-2">
-            1、{{ content }}
+          <li class="my-2">
+            {{ content }}
           </li>
         </ul>
-        <div class="mt-8 mb-4">
-          <label for="resume-upload" class="bg-indigo-600 text-white rounded-full px-4 py-2">
-            <span>上传简历</span>
-          </label>
-          <input class="hidden" id="resume-upload" type="file"/>
+        <span class="text-indigo-600 inline-block my-8 text-xl font-bold border-b-2 border-b-indigo-600">
+          上传简历
+        </span>
+        <embed :src="mfile">
+        <h2 class="text-sm mb-4">从本地上传</h2>
+        <form method="post" enctype="multipart/form-data">
+          <div class="flex items-center space-x-6">
+            <label class="block">
+              <input id="resume" name="resume" type="file" class="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-indigo-50 file:text-indigo-700
+                hover:file:bg-indigo-100" @change="handleFileOverview"
+              />
+            </label>
+            <button type="button" class="px-4 py-2 text-white text-sm bg-indigo-500 rounded-full ml-auto" @click="handleFileUpload">确认提交</button>
+          </div>
+        </form>
+        <DividerHorizontal class="my-8"/>
+        <div>
+          <h2 class="text-sm my-4">从profile上传</h2>
+          <button type="button" class="px-4 py-2 text-white text-sm bg-indigo-500 rounded-full ml-auto" @click="">确认提交</button>
         </div>
+
       </div>
     </div>
   </div>
@@ -38,8 +60,10 @@
 <script setup>
 import DividerHorizontal from "../components/DividerHorizontal.vue";
 import DividerInlineVertical from "../components/DividerInlineVertical.vue";
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUpdated } from 'vue';
 import { useRouter } from "vue-router";
+
+const mfile = ref();
 
 const jobDescription = ref([
   '1、参与前端的开发工作，将创意变成现实，并确保顺畅的用户体验；',
@@ -58,6 +82,7 @@ const content = ref('');
 const title = ref('');
 const company = ref('');
 const base = ref('');
+const fileList = ref();
 
 const router = useRouter();
 
@@ -84,6 +109,46 @@ onMounted(()=>{
   // console.log(jobID);
   getJobDetailDescription(jobID);
 })
+
+
+async function handleFileOverview() {
+  let file = document.getElementById('resume').files;
+  // mfile.value = file[0];
+
+  let reader = new FileReader();
+  if(file && file[0]){
+    reader.onload = function (ev) {
+      mfile.value = ev.target.result;
+    }
+    // reader.readAsDataURL(file[0]);
+  }
+
+  console.log(file);
+  console.log(file[0].name);
+}
+
+const handleFileUpload = async () => {
+  let file = document.getElementById('resume').files[0];
+  const formData = new FormData();
+  formData.append('resume', file);
+  formData.append('user_id', window.sessionStorage.getItem('user_id'));
+  formData.append('Filename', file.name);
+  // console.log(formData.);
+  const http = await fetch('/api/user/upload_resume', {
+    method: 'POST',
+    body: formData
+  }).catch(e =>{
+    console.log(e);
+  })
+
+  const resp = await http.json();
+  console.log(resp);
+}
+
+//
+// onUpdated(()=>{
+//   handleFileOverview();
+// })
 
 </script>
 

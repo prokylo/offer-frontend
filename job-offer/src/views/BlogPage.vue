@@ -25,7 +25,7 @@
       <CommentsApp class="mt-4 sm:mb-auto" />
     </div>
     <div class="w-1/4 mt-28 mb-auto bg-white rounded-lg shadow-lg hidden xl:block">
-      <h2 class="font-bold p-4 text-xl">其他帖子</h2>
+      <h2 class="font-bold p-4 text-xl">热门帖子</h2>
       <DividerHorizontal style="width: 90%; margin-left: auto; margin-right: auto;" />
       <RelatedBlogItem v-for="blog in blogs" :key="blog.ID" v-bind="blog" />
     </div>
@@ -120,13 +120,14 @@ const constructARelatedBlog = (item) => {
 }
 
 const getBlogList = async () => {
-  const res = await fetch("/api/blog/show_blog_list", {
+  const res = await fetch(`/api/blog/top_k?k=${3}`, {
     method: "GET"
   })
   const blogList = await res.json();
-  blogList.data.blogs.forEach((item)=>{
+  blogs.value = [];
+  for (const item of blogList.data.blogs) {
     blogs.value.push(constructARelatedBlog(item));
-  })
+  }
 }
 
 

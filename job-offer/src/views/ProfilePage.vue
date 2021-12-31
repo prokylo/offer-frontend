@@ -15,8 +15,8 @@
                 </div>
               </div>
               <div class="flex justify-center">
-                <iframe style="width: 100%;" class="h-screen" :src="resumeURL"></iframe>
-                <embed :src="resumeURL" class="w-6/7 h-screen hidden" />
+<!--                <iframe style="width: 100%;" class="h-screen" :src="resumeURL"></iframe>-->
+<!--                <embed :src="resumeURL" class="w-6/7 h-screen hidden" />-->
               </div>
 
               <div v-if="hasResume">
@@ -51,9 +51,9 @@
                       <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <div class="flex text-sm text-gray-600">
-                      <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                      <label for="resume" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                         <span>Upload a file</span>
-                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                        <input id="resume" name="resume" type="file" class="sr-only">
                       </label>
                       <p class="pl-1">or drag and drop</p>
                     </div>
@@ -90,7 +90,7 @@ const userID = ref('');
 
 const baseFileUrl = "/";
 
-const resumeURL = ref('');
+const resumeURL = ref();
 
 const aresumeURL = ref('');
 
@@ -110,6 +110,15 @@ const handleUploadResume2 = async() => {
     method: 'GET',
 
   })
+}
+
+const handleDownloadResume = async ()=>{
+  const http = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
+    method: 'GET',
+  })
+  // const res = await http.json();
+  // console.log(http);
+
 }
 
 const handleUploadResume = async() => {

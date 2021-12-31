@@ -78,7 +78,8 @@ const routes = [
     },
     {
         path: "/jobeditor",
-        component: JobEditorComp
+        component: JobEditorComp,
+        beforeEnter: [authCheck]
     }
 ];
 

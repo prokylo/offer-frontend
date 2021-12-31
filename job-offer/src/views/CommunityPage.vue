@@ -6,14 +6,14 @@
     <input type="radio" name="tab" id="recent-posts" class="hidden"/>
     <div class="nav-bar rounded-lg shadow py-4 px-8 mb-4 flex items-center">
       <label for="top-list">
-        <span class="py-2 px-5 rounded-full inline-block text-2xl">热门</span>
+        <span class="py-2 px-5 rounded-full inline-block text-2xl" @click="getTopkPostList(3)">热门</span>
       </label>
       <label for="collection-posts">
-        <span class="py-2 px-5 rounded-full inline-block text-2xl">最近</span>
+        <span class="py-2 px-5 rounded-full inline-block text-2xl" @click="getPostList">全部</span>
       </label>
-      <label for="recent-posts">
-        <span class="py-2 px-5 rounded-full inline-block text-2xl">收藏</span>
-      </label>
+<!--      <label for="recent-posts">-->
+<!--        <span class="py-2 px-5 rounded-full inline-block text-2xl">收藏</span>-->
+<!--      </label>-->
       <button class="ml-auto bg-indigo-600 text-white py-3 px-4 rounded-lg shadow-lg flex items-center" @click="addNewBlog">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -40,7 +40,7 @@ import BlogItem from "../components/BlogItem.vue";
 const router = useRouter();
 
 onMounted(()=>{
-  getPostList();
+  getTopkPostList(3);
 })
 
 const addNewBlog = () => {
@@ -74,11 +74,23 @@ const constructABlog = async(item) => {
   };
 }
 
+const getTopkPostList = async (k) => {
+  const res = await fetch(`/api/blog/top_k?k=${k}`, {
+    method: "GET"
+  })
+  const blogList = await res.json();
+  blogs.value = [];
+  for (const item of blogList.data.blogs) {
+    blogs.value.push(await constructABlog(item));
+  }
+}
+
 const getPostList = async () => {
   const res = await fetch("/api/blog/show_blog_list", {
     method: "GET"
   })
   const blogList = await res.json();
+  blogs.value = [];
   for (const item of blogList.data.blogs) {
     blogs.value.push(await constructABlog(item));
   }
