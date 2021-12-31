@@ -20,8 +20,8 @@
 
     <div class="my-8 sm:flex sm:flex-wrap sm:flex-start">
       <JobCardBox v-for="job in jobs"
+                  @click="routeToDetailPage(job.jobId)"
                   :key="job.id"
-                  @click="routeToDetailPage"
                   class="cursor-pointer"
                   v-bind="job"
       />
@@ -40,13 +40,14 @@ import HeaderNavComp from "../components/HeaderNavComp.vue";
 // console.log(token);
 
 const router = useRouter();
-const routeToDetailPage = ()=>{
-  router.push({ name: 'detail', params:{ jobId: 2}})
-}
 
 onMounted(()=>{
   getJobList();
 })
+
+const routeToDetailPage = (id)=>{
+  router.push({ name: 'detail', params:{ jobId: id }});
+}
 
 const routeToJobEditorPage = () => {
   router.push('/jobeditor');
@@ -59,14 +60,15 @@ const getJobList = async () => {
 
   const jobList = await res.json();
   jobList.data.jobs.forEach((item)=>{
-    // console.log(item);
     jobs.value.push(constructAJobDescription(item));
   })
 }
 
 const constructAJobDescription = (item) => {
+  // console.log(item);
   return {
     id: item.ID,
+    jobId: item.job_id,
     jobName: item.title,
     place: item.base,
     education: '本科',

@@ -12,7 +12,8 @@
 import DividerHorizontal from '../components/DividerHorizontal.vue'
 import DividerInlineVertical from '../components/DividerInlineVertical.vue'
 
-defineProps(["jobName", "place", "year", "education", "salary", "company"])
+const props = defineProps(["jobName", "place", "year", "education", "salary", "company", "jobId"])
+
 </script>
 
 <style scoped>
