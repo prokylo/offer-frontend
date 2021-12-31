@@ -115,20 +115,21 @@ async function handleFileOverview() {
   let file = document.getElementById('resume').files;
   // mfile.value = file[0];
 
-  let reader = new FileReader();
-  if(file && file[0]){
-    reader.onload = function (ev) {
-      mfile.value = ev.target.result;
-    }
+  // let reader = new FileReader();
+  // if(file && file[0]){
+  //   reader.onload = function (ev) {
+  //     mfile.value = ev.target.result;
+  //   }
     // reader.readAsDataURL(file[0]);
-  }
+  // }
 
-  console.log(file);
-  console.log(file[0].name);
+  // console.log(file);
+  // console.log(file[0].name);
 }
 
 const handleFileUpload = async () => {
   let file = document.getElementById('resume').files[0];
+  console.log(file);
   const formData = new FormData();
   formData.append('resume', file);
   formData.append('user_id', window.sessionStorage.getItem('user_id'));

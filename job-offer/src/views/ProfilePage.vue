@@ -4,7 +4,7 @@
 <!--    <a class="hidden" id="file-download"></a>-->
     <div class="grid gap-4 grid-cols-6 mt-8">
       <div class="mt-2 col-span-4 col-start-2">
-        <form action="" @submit="handleUploadResume">
+        <form>
           <div class="shadow sm:rounded-md sm:overflow-hidden">
             <div class="px-4 py-5 bg-white space-y-6 sm:p-12">
               <div>
@@ -50,12 +50,12 @@
                     <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <div class="flex text-sm text-gray-600">
-                      <label for="resume" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                    <div class="flex text-sm text-gray-600 justify-center">
+                      <label for="resume-input" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                         <span>Upload a file</span>
-                        <input id="resume" name="resume" type="file" class="sr-only">
+                        <input id="resume-input" name="resume-input" type="file" class="sr-only" @change="handleFileUpdated"/>
                       </label>
-                      <p class="pl-1">or drag and drop</p>
+<!--                      <p class="pl-1">or drag and drop</p>-->
                     </div>
                     <p class="text-xs text-gray-500">
                       PDF, DOC, DOCS up to 10MB
@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-              <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button type="button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="handleUploadResume">
                 Save
               </button>
             </div>
@@ -105,59 +105,45 @@ const getUserName = async () => {
   }
 }
 
-const handleUploadResume2 = async() => {
-  const res = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
-    method: 'GET',
-
-  })
-}
-
 const handleDownloadResume = async ()=>{
   const http = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
     method: 'GET',
   })
   // const res = await http.json();
   // console.log(http);
-
-}
-
-const handleUploadResume = async() => {
-  const res = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
-    method: 'GET'
-  })
-
-  const file = await res.json();
-  resumeURL.value = baseFileUrl + "10185101250_20211009.pdf";
-
-  // const res = await fetch(`/api/user/download_resume?user_id=${userID.value}`,{
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   }
-  // }).then(res => {
-  //   res.blob().then( blob => {
-  //     let blobUrl = window.URL.createObjectURL(blob);
-  //     //不能直接创建一个<a>标签
-  //     // let a = document.createElement('a_id');
-  //     let a = document.getElementById('file-download');
-  //     //无法从返回的文件流中获取文件名
-  //     // let filename = response.headers.get('Content-Disposition');
-  //     let filename = 'file.txt';
-  //     a.href = blobUrl;
-  //     a.download = filename;
-  //     a.click();
-  //     window.URL.revokeObjectURL(blobUrl);
-  //   });
-  // })
 }
 
 onBeforeMount(()=>{
   userID.value = window.sessionStorage.getItem("user_id");
   aresumeURL.value = 'http://127.0.0.1:8080/user/download_resume?user_id=' + userID.value;
-  console.log(aresumeURL.value);
+  // console.log(aresumeURL.value);
   getUserName();
-  handleUploadResume();
 })
+
+const handleFileUpdated = async () => {
+  // console.log(file);
+}
+
+const handleUploadResume = async() => {
+  let file = document.getElementById('resume-input').files[0];
+
+  // console.log(file);
+  const formData = new FormData();
+  formData.append('resume', file);
+  formData.append('user_id', window.sessionStorage.getItem('user_id'));
+  formData.append('Filename', file.name);
+  const http = await fetch('/api/user/upload_resume', {
+    method: 'POST',
+    body: formData
+  })
+  // console.log(http);
+
+  const resp = await http.json();
+  if(resp.code === 0){
+    alert('上传成功!');
+  }
+  console.log(resp);
+}
 
 </script>
 
