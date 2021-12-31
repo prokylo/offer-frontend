@@ -29,10 +29,10 @@
             <input
                 type="button"
                 value="取消"
-                class="px-4 py-1.5 bg-white rounded border" @click=""
+                class="px-4 py-1.5 bg-white rounded border" @click="handleRoutetoBack"
             />
           </fieldset>
-          <button @click="" class="absolute -right-6 -top-6">
+          <button @click="handleRoutetoBack" class="absolute -right-6 -top-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -53,6 +53,10 @@ const title = ref('');
 const company = ref('');
 const base = ref('');
 const content = ref('');
+
+const handleRoutetoBack = async ()=>{
+  router.go(-1);
+}
 
 const handleCreateBlog = async ()=>{
   const http = await fetch('/api/job/campaign_job', {

@@ -87,6 +87,7 @@ const handleLoginRequest = async (e) => {
     })
   });
   const resp = await res.json();
+  console.log(resp);
   if(resp.code === 0) {
     alert('登陆成功！');
     emit("click", false);
