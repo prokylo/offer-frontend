@@ -62,7 +62,8 @@ const handleRegisterRequest = async (e) => {
     },
     body:JSON.stringify({
       email: email.value,
-      password: password.value
+      password: password.value,
+      name: "default"
     })
   });
   const resp = await res.json();

@@ -33,7 +33,10 @@
   <div class="my-2 flex items-center">
     <button class="flex flex-row" @click="handleAddLikeItems">
       <span class="mr-2">{{ likes }}</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" v-if="isLiked" class="h-6 w-6 inline-block text-red-300" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" v-else class="h-6 w-6 inline-block text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
       </svg>
     </button>
@@ -53,14 +56,18 @@
 import DividerHorizontal from './DividerHorizontal.vue'
 import Markdown from 'vue3-markdown-it'
 import { useRouter } from 'vue-router'
+import { ref } from "vue";
 const props = defineProps(["id", "blogId", "user_id", "user", "time", "title", "avatar", "content", "likes", "collections"]);
 const router = useRouter();
+
+const isLiked = ref(false);
 
 const handleTurnToPostContent = () =>{
   router.push({ name: 'blog', params: { blogId: props.blogId } });
 }
 
 const handleAddLikeItems = async () => {
+  isLiked.value = true;
   const res = await fetch('/api/blog/add_star', {
     method: 'POST',
     headers: {
@@ -71,7 +78,9 @@ const handleAddLikeItems = async () => {
       blog_id: props.blogId
     })
   })
-
+  // let likes = props.likes;
+  // likes = parseInt(likes) + 1;
+  // props.likes = likes;
   const comment = await res.json();
   console.log(comment);
 }
