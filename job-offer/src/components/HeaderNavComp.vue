@@ -19,6 +19,24 @@
         <a class="list-none mx-4 text-xl" href="">SUPPORT</a>
       </div>
     </nav>
+    <div class="flex ml-auto sm:hidden">
+      <button @click="handleExpandNavMenu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-center" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </button>
+      <transition name="menu">
+        <div class="origin-top-right absolute right-28 mt-16 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" v-if="isNavMenuActive" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+          <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem" tabindex="-1" id="22"><router-link to="/jobs">HOME</router-link></a>
+
+          <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem" tabindex="-1" id="33"><router-link to="/community">COMMUNITY</router-link></a>
+
+          <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem" tabindex="-1" id="44">JOIN</a>
+
+          <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem" tabindex="-1" id="55">SUPPORT</a>
+        </div>
+      </transition>
+    </div>
     <div class="hidden sm:flex ml-auto lg:ml-0">
       <button
           class="mr-6 bg-indigo-700 border-2 rounded-lg place-self-center
@@ -65,6 +83,7 @@ const router = useRouter();
 
 const isLogin = ref(false);
 const isAvatarMenuActive = ref(false);
+const isNavMenuActive = ref(false);
 
 onBeforeMount(() => {
   const hasUserId = window.sessionStorage.getItem("user_id");
@@ -79,6 +98,10 @@ onMounted(()=>{
 
 const activateAvatarMenu = () => {
   isAvatarMenuActive.value = !isAvatarMenuActive.value;
+}
+
+const handleExpandNavMenu = () => {
+  isNavMenuActive.value = !isNavMenuActive.value;
 }
 
 const handleSubmit = (msg) => {
