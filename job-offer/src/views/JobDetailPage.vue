@@ -49,7 +49,7 @@
         <DividerHorizontal class="my-8"/>
         <div>
           <h2 class="text-sm my-4">从profile上传</h2>
-          <button type="button" class="px-4 py-2 text-white text-sm bg-indigo-500 rounded-full ml-auto" @click="">确认提交</button>
+          <button type="button" class="px-4 py-2 text-white text-sm bg-indigo-500 rounded-full ml-auto" @click="handleApplyJob">确认提交</button>
         </div>
 
       </div>
@@ -106,7 +106,6 @@ const getJobDetailDescription = async (id) => {
 
 onMounted(()=>{
   const jobID = router.currentRoute.value.params.jobId;
-  // console.log(jobID);
   getJobDetailDescription(jobID);
 })
 
@@ -144,12 +143,28 @@ const handleFileUpload = async () => {
 
   const resp = await http.json();
   console.log(resp);
+  handleApplyJob();
 }
 
-//
-// onUpdated(()=>{
-//   handleFileOverview();
-// })
+const handleApplyJob = async () => {
+  let jobId = router.currentRoute.value.params.jobId;
+  jobId = parseInt(jobId);
+  const http = await fetch('/api/job/apply', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8;'
+    },
+    body: JSON.stringify({
+      user_id: parseInt(window.sessionStorage.getItem('user_id')),
+      job_id: jobId
+    })
+  })
+
+  const res = await http.json();
+  if(res.code === 0){
+    alert('投递成功！');
+  }
+}
 
 </script>
 
